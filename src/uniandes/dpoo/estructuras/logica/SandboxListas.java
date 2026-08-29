@@ -15,7 +15,7 @@ import java.util.List;
  * 
  * Intente usar varias formas de recorrer las listas (while, for, for each, iteradores ... )
  */
-public class SandboxListas
+public class SandboxListas // 
 {
     /**
      * Una lista de enteros para realizar varias de las siguientes operaciones.
