@@ -1,9 +1,12 @@
 package uniandes.dpoo.estructuras.logica;
 
 import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NavigableSet;
 import java.util.TreeSet;
+import java.util.Iterator;
+import java.util.Collections;
 
 /**
  * Esta clase tiene un conjunto de métodos para practicar operaciones sobre conjuntos implementados usando un árbol (TreeSet).
@@ -39,7 +42,9 @@ public class SandboxConjuntos
      */
     public List<String> getCadenasComoLista( )
     {
-        return null;
+    	List<String> lista = new ArrayList<String> (arbolCadenas);
+    	
+        return lista;
     }
 
     /**
@@ -48,7 +53,9 @@ public class SandboxConjuntos
      */
     public List<String> getCadenasComoListaInvertida( )
     {
-        return null;
+        List<String> lista = new ArrayList<String> (arbolCadenas);
+        List<String> listaInvertida = lista.reversed();
+    	return listaInvertida;
     }
 
     /**
@@ -59,7 +66,10 @@ public class SandboxConjuntos
      */
     public String getPrimera( )
     {
-        return null;
+    	if (arbolCadenas.isEmpty()) {
+    	    return null;
+    	}
+    	return arbolCadenas.first();
     }
 
     /**
@@ -70,7 +80,10 @@ public class SandboxConjuntos
      */
     public String getUltima( )
     {
-        return null;
+    	if (arbolCadenas.isEmpty()) {
+    		return null;
+    	}
+        return arbolCadenas.last();
     }
 
     /**
@@ -80,7 +93,8 @@ public class SandboxConjuntos
      */
     public Collection<String> getSiguientes( String cadena )
     {
-        return null;
+    	Collection<String> siguientes = arbolCadenas.tailSet(cadena, true);
+    	return siguientes;
     }
 
     /**
@@ -89,7 +103,8 @@ public class SandboxConjuntos
      */
     public int getCantidadCadenas( )
     {
-        return -1;
+        int tamano = arbolCadenas.size();
+    	return tamano;
     }
 
     /**
@@ -101,7 +116,7 @@ public class SandboxConjuntos
      */
     public void agregarCadena( String cadena )
     {
-
+    	arbolCadenas.add(cadena);
     }
 
     /**
@@ -110,7 +125,7 @@ public class SandboxConjuntos
      */
     public void eliminarCadena( String cadena )
     {
-
+    	arbolCadenas.remove(cadena);
     }
 
     /**
@@ -119,7 +134,13 @@ public class SandboxConjuntos
      */
     public void eliminarCadenaSinMayusculasOMinusculas( String cadena )
     {
-
+    	Iterator<String> it = arbolCadenas.iterator();
+    	while (it.hasNext()) {
+    		String actual = it.next();
+    		if (actual.equalsIgnoreCase(cadena)) {
+    			it.remove();
+    		}
+    	}
     }
 
     /**
@@ -127,7 +148,7 @@ public class SandboxConjuntos
      */
     public void eliminarPrimera( )
     {
-
+    	arbolCadenas.removeFirst();
     }
 
     /**
@@ -138,7 +159,11 @@ public class SandboxConjuntos
      */
     public void reiniciarConjuntoCadenas( List<Object> objetos )
     {
-
+    	arbolCadenas.clear();
+    	
+    	for (Object objeto: objetos) {
+    		arbolCadenas.add(objeto.toString());
+    	}
     }
 
     /**
@@ -148,6 +173,14 @@ public class SandboxConjuntos
      */
     public void volverMayusculas( )
     {
+    	// Podria primero volverlo una lista y despues irlo metiendo con mayusculas.
+    	
+    	List<String> lista = getCadenasComoLista();
+    	arbolCadenas.clear();
+    	for (String elemento: lista) {
+    		String elementoMayus = elemento.toUpperCase();
+    		arbolCadenas.add(elementoMayus);
+    	}
     }
 
     /**
@@ -155,7 +188,9 @@ public class SandboxConjuntos
      */
     public TreeSet<String> invertirCadenas( )
     {
-        return null;
+    	TreeSet<String> cadenasInv = new TreeSet<String> (Collections.reverseOrder());
+    	cadenasInv.addAll(arbolCadenas);
+    	return cadenasInv;
     }
 
     /**
@@ -165,7 +200,16 @@ public class SandboxConjuntos
      */
     public boolean compararElementos( String[] otroArreglo )
     {
-        return false;
+        boolean hacenParte = true;
+        // Mi idea es irlos comparando con los elementos.
+        for (String elemento: otroArreglo) {
+        	if (! arbolCadenas.contains(elemento)) {
+        		hacenParte = false;
+        	}
+        }
+        
+        
+    	return hacenParte;
     }
 
 }
